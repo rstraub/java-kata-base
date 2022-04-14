@@ -1,6 +1,6 @@
-# Java Kata Base
+# ☕️ Java Kata Base
 
---Badge
+[![Java CI with Maven](https://github.com/rstraub/java-kata-base/actions/workflows/maven.yml/badge.svg)](https://github.com/rstraub/java-kata-base/actions/workflows/maven.yml)
 
 Starter project for Code Katas in Java. Batteries included.
 
