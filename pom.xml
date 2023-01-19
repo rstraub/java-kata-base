@@ -113,7 +113,7 @@
   <name>Java Kata Base</name>
 
   <properties>
-    <assertj.version>3.23.1</assertj.version>
+    <assertj.version>3.24.2</assertj.version>
     <junit.version>5.9.2</junit.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
