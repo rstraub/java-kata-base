@@ -1,11 +1,9 @@
 package nl.codecraftr.java.katabase.mastermind;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public record Code(Color peg1, Color peg2, Color peg3, Color peg4) {
-  private record Peg(int Position, Color color) {
+  private record Peg(int position, Color color) {
   }
 
   private List<Peg> pegs() {
@@ -28,15 +26,8 @@ public record Code(Color peg1, Color peg2, Color peg3, Color peg4) {
     return guess.pegs().stream().map(Peg::color).filter(secretColors::contains).toList();
   }
 
-  private ArrayList<Peg> correctPegs(Code guess) {
-    var matchedPegs = new ArrayList<Peg>();
-    IntStream.range(0, guess.pegs().size()).forEach(idx -> {
-      var currentPeg = guess.pegs().get(idx);
-      if (currentPeg.equals(pegs().get(idx))) {
-        matchedPegs.add(currentPeg);
-      }
-    });
-    return matchedPegs;
+  private List<Peg> correctPegs(Code guess) {
+    return guess.pegs().stream().filter(peg -> pegs().contains(peg)).toList();
   }
 }
 
