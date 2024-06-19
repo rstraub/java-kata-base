@@ -7,12 +7,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class SecretTest {
+class CodeTest {
   @Nested
   class Guess {
     @Test
     void should_return_zero_well_placed_zero_misplaced_given_different_colors() {
-      var secret = new Secret(RED, RED, RED, RED);
+      var secret = new Code(RED, RED, RED, RED);
 
       var result = secret.guess(BLUE, BLUE, BLUE, BLUE);
 
