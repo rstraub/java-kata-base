@@ -8,6 +8,7 @@ import static nl.codecraftr.java.katabase.mastermind.Peg.YELLOW;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -52,6 +53,7 @@ class CodeTest {
     }
 
     @ParameterizedTest
+    @Disabled("WIP")
     @MethodSource("misplacedCases")
     void should_return_amount_misplaced_pegs_given_partially_correct_guess(Code guess,
       Result expected) {

@@ -2,6 +2,7 @@ package nl.codecraftr.java.katabase.mastermind;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
   private List<Peg> pegs() {
@@ -15,18 +16,12 @@ public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
   public Result evaluate(Code guess) {
     var matchedPegs = new ArrayList<>();
 
-    if (guess.peg1().equals(peg1())) {
-      matchedPegs.add(peg1());
-    }
-    if (guess.peg2().equals(peg2())) {
-      matchedPegs.add(peg2());
-    }
-    if (guess.peg3().equals(peg3())) {
-      matchedPegs.add(peg3());
-    }
-    if (guess.peg4().equals(peg4())) {
-      matchedPegs.add(peg4());
-    }
+    IntStream.range(0, guess.pegs().size()).forEach(idx -> {
+      var currentPeg = guess.pegs().get(idx);
+      if (currentPeg.equals(pegs().get(idx))) {
+        matchedPegs.add(currentPeg);
+      }
+    });
     var correct = matchedPegs.size();
 
     var misplaced = 0;
