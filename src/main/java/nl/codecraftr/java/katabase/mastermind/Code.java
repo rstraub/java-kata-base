@@ -14,18 +14,25 @@ public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
   }
 
   public Result evaluate(Code guess) {
-    var matchedPegs = new ArrayList<>();
+    var correctPegs = correctPegs(guess);
+    var misplacedPegs = misplacedPegs(guess);
+
+    return new Result(correctPegs.size(), misplacedPegs.size());
+  }
+
+  private List<Peg> misplacedPegs(Code guess) {
+    return guess.pegs().stream().filter(peg -> pegs().contains(peg)).toList();
+  }
+
+  private ArrayList<Peg> correctPegs(Code guess) {
+    var matchedPegs = new ArrayList<Peg>();
     IntStream.range(0, guess.pegs().size()).forEach(idx -> {
       var currentPeg = guess.pegs().get(idx);
       if (currentPeg.equals(pegs().get(idx))) {
         matchedPegs.add(currentPeg);
       }
     });
-    var correct = matchedPegs.size();
-
-    var misplaced = guess.pegs().stream().filter(peg -> pegs().contains(peg)).toList().size();
-
-    return new Result(correct, misplaced);
+    return matchedPegs;
   }
 }
 
