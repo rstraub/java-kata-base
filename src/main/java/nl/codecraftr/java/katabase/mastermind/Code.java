@@ -2,12 +2,25 @@ package nl.codecraftr.java.katabase.mastermind;
 
 public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
   public Result evaluate(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
-    var guess = new Code(peg1, peg2, peg3, peg4);
+    return evaluate(new Code(peg1, peg2, peg3, peg4));
+  }
 
-    if (this.equals(guess)) {
-      return new Result(4, 0);
+  public Result evaluate(Code guess) {
+    var correct = 0;
+    if (peg1().equals(guess.peg1())) {
+      correct++;
     }
-    return new Result(0, 0);
+    if (peg2().equals(guess.peg2())) {
+      correct++;
+    }
+    if (peg3().equals(guess.peg3())) {
+      correct++;
+    }
+    if (peg4().equals(guess.peg4())) {
+      correct++;
+    }
+
+    return new Result(correct, 0);
   }
 }
 
