@@ -24,48 +24,62 @@ class CodeTest {
     void should_return_zero_well_placed_zero_misplaced_given_different_colors() {
       var result = ALL_RED.evaluate(BLUE, BLUE, BLUE, BLUE);
 
-      assertThat(result).isEqualTo(new Result(0, 0));
+      assertThat(result.correct()).isZero();
+      assertThat(result.misplaced()).isZero();
     }
 
     @Test
     void should_return_four_well_placed_given_identical_guess() {
       var result = ALL_RED.evaluate(RED, RED, RED, RED);
 
-      assertThat(result).isEqualTo(new Result(4, 0));
+      assertThat(result.correct()).isEqualTo(4);
     }
 
     @ParameterizedTest
     @MethodSource("partiallyCorrectCases")
-    void should_return_amount_correct_pegs_given_partially_correct_guess(Code guess,
-      Result expected) {
+    void should_return_amount_correct_pegs_given_partially_correct_guess(Code guess, int expected) {
       var result = ALL_RED.evaluate(guess);
 
-      assertThat(result).isEqualTo(expected);
+      assertThat(result.correct()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> partiallyCorrectCases() {
-      return Stream.of(Arguments.of(new Code(RED, GREEN, GREEN, GREEN), new Result(1, 0)),
-        Arguments.of(new Code(GREEN, RED, GREEN, GREEN), new Result(1, 0)),
-        Arguments.of(new Code(GREEN, GREEN, RED, GREEN), new Result(1, 0)),
-        Arguments.of(new Code(GREEN, GREEN, GREEN, RED), new Result(1, 0)),
-        Arguments.of(new Code(RED, GREEN, GREEN, RED), new Result(2, 0)),
-        Arguments.of(new Code(GREEN, RED, RED, GREEN), new Result(2, 0)));
+      return Stream.of(Arguments.of(new Code(RED, GREEN, GREEN, GREEN), 1),
+        Arguments.of(new Code(GREEN, RED, GREEN, GREEN), 1),
+        Arguments.of(new Code(GREEN, GREEN, RED, GREEN), 1),
+        Arguments.of(new Code(GREEN, GREEN, GREEN, RED), 1),
+        Arguments.of(new Code(RED, GREEN, GREEN, RED), 2),
+        Arguments.of(new Code(GREEN, RED, RED, GREEN), 2));
     }
 
     @ParameterizedTest
-    @Disabled("WIP")
     @MethodSource("misplacedCases")
     void should_return_amount_misplaced_pegs_given_partially_correct_guess(Code guess,
-      Result expected) {
+      int expected) {
       var secret = new Code(RED, GREEN, BLUE, YELLOW);
 
       var result = secret.evaluate(guess);
 
-      assertThat(result).isEqualTo(expected);
+      assertThat(result.misplaced()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> misplacedCases() {
-      return Stream.of(Arguments.of(new Code(PURPLE, PURPLE, PURPLE, RED), new Result(0, 1)));
+      return Stream.of(
+        Arguments.of(new Code(PURPLE, RED, PURPLE, PURPLE), 1),
+        Arguments.of(new Code(PURPLE, PURPLE, RED, PURPLE), 1),
+        Arguments.of(new Code(PURPLE, PURPLE, PURPLE, RED), 1),
+        Arguments.of(new Code(YELLOW, BLUE, GREEN, RED), 4)
+      );
+    }
+
+    @Disabled("TODO")
+    @Test
+    void should_not_count_correct_pegs_as_misplaced_ones() {
+    }
+
+    @Disabled("TODO")
+    @Test
+    void should_count_misplaced_pegs_once() {
     }
   }
 }

@@ -15,7 +15,6 @@ public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
 
   public Result evaluate(Code guess) {
     var matchedPegs = new ArrayList<>();
-
     IntStream.range(0, guess.pegs().size()).forEach(idx -> {
       var currentPeg = guess.pegs().get(idx);
       if (currentPeg.equals(pegs().get(idx))) {
@@ -24,7 +23,7 @@ public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
     });
     var correct = matchedPegs.size();
 
-    var misplaced = 0;
+    var misplaced = guess.pegs().stream().filter(peg -> pegs().contains(peg)).toList().size();
 
     return new Result(correct, misplaced);
   }
