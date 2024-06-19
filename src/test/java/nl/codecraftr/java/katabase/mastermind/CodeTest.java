@@ -2,7 +2,9 @@ package nl.codecraftr.java.katabase.mastermind;
 
 import static nl.codecraftr.java.katabase.mastermind.Peg.BLUE;
 import static nl.codecraftr.java.katabase.mastermind.Peg.GREEN;
+import static nl.codecraftr.java.katabase.mastermind.Peg.PURPLE;
 import static nl.codecraftr.java.katabase.mastermind.Peg.RED;
+import static nl.codecraftr.java.katabase.mastermind.Peg.YELLOW;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.Stream;
@@ -33,7 +35,7 @@ class CodeTest {
 
     @ParameterizedTest
     @MethodSource("partiallyCorrectCases")
-    void should_return_amount_well_placed_given_partially_correct_guess(Code guess,
+    void should_return_amount_correct_pegs_given_partially_correct_guess(Code guess,
       Result expected) {
       var result = ALL_RED.evaluate(guess);
 
@@ -41,14 +43,27 @@ class CodeTest {
     }
 
     private static Stream<Arguments> partiallyCorrectCases() {
-      return Stream.of(
-        Arguments.of(new Code(RED, GREEN, GREEN, GREEN), new Result(1, 0)),
+      return Stream.of(Arguments.of(new Code(RED, GREEN, GREEN, GREEN), new Result(1, 0)),
         Arguments.of(new Code(GREEN, RED, GREEN, GREEN), new Result(1, 0)),
         Arguments.of(new Code(GREEN, GREEN, RED, GREEN), new Result(1, 0)),
         Arguments.of(new Code(GREEN, GREEN, GREEN, RED), new Result(1, 0)),
         Arguments.of(new Code(RED, GREEN, GREEN, RED), new Result(2, 0)),
-        Arguments.of(new Code(GREEN, RED, RED, GREEN), new Result(2, 0))
-      );
+        Arguments.of(new Code(GREEN, RED, RED, GREEN), new Result(2, 0)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("misplacedCases")
+    void should_return_amount_misplaced_pegs_given_partially_correct_guess(Code guess,
+      Result expected) {
+      var secret = new Code(RED, GREEN, BLUE, YELLOW);
+
+      var result = secret.evaluate(guess);
+
+      assertThat(result).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> misplacedCases() {
+      return Stream.of(Arguments.of(new Code(PURPLE, PURPLE, PURPLE, RED), new Result(0, 1)));
     }
   }
 }
