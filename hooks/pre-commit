@@ -8,7 +8,7 @@ if [[ -z "$files" ]]; then
     exit 0
 fi
 
-mvnd checkstyle:check
+mvnd -B -q checkstyle:check
 
 # Add the formatted files to the staging area
 git add $files
