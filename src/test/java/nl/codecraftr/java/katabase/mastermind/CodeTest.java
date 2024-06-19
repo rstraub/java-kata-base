@@ -9,15 +9,21 @@ import org.junit.jupiter.api.Test;
 
 class CodeTest {
   @Nested
-  class Guess {
+  class Evaluate {
+    private final Code secret = new Code(RED, RED, RED, RED);
+
     @Test
     void should_return_zero_well_placed_zero_misplaced_given_different_colors() {
-      var secret = new Code(RED, RED, RED, RED);
+      var result = secret.evaluate(BLUE, BLUE, BLUE, BLUE);
 
-      var result = secret.guess(BLUE, BLUE, BLUE, BLUE);
+      assertThat(result).isEqualTo(new Result(0, 0));
+    }
 
-      assertThat(result.wellPlaced()).isZero();
-      assertThat(result.misPlaced()).isZero();
+    @Test
+    void should_return_four_well_placed_given_identical_code() {
+      var result = secret.evaluate(RED, RED, RED, RED);
+
+      assertThat(result).isEqualTo(new Result(4, 0));
     }
   }
 }
