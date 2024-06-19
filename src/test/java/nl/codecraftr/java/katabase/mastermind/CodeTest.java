@@ -1,10 +1,10 @@
 package nl.codecraftr.java.katabase.mastermind;
 
-import static nl.codecraftr.java.katabase.mastermind.Peg.BLUE;
-import static nl.codecraftr.java.katabase.mastermind.Peg.GREEN;
-import static nl.codecraftr.java.katabase.mastermind.Peg.PURPLE;
-import static nl.codecraftr.java.katabase.mastermind.Peg.RED;
-import static nl.codecraftr.java.katabase.mastermind.Peg.YELLOW;
+import static nl.codecraftr.java.katabase.mastermind.Color.BLUE;
+import static nl.codecraftr.java.katabase.mastermind.Color.GREEN;
+import static nl.codecraftr.java.katabase.mastermind.Color.PURPLE;
+import static nl.codecraftr.java.katabase.mastermind.Color.RED;
+import static nl.codecraftr.java.katabase.mastermind.Color.YELLOW;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.Stream;

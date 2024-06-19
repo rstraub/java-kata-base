@@ -1,6 +1,6 @@
 package nl.codecraftr.java.katabase.mastermind;
 
-public enum Peg {
+public enum Color {
   RED,
   BLUE,
   GREEN,

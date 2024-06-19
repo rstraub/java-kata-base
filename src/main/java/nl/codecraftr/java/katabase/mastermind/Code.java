@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
-  private List<Peg> pegs() {
-    return List.of(peg1, peg2, peg3, peg4);
+public record Code(Color peg1, Color peg2, Color peg3, Color peg4) {
+  private record Peg(int Position, Color color) {
   }
 
-  public Result evaluate(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
+  private List<Peg> pegs() {
+    return List.of(new Peg(0, peg1), new Peg(1, peg2), new Peg(2, peg3), new Peg(3, peg4));
+  }
+
+  public Result evaluate(Color peg1, Color peg2, Color peg3, Color peg4) {
     return evaluate(new Code(peg1, peg2, peg3, peg4));
   }
 
@@ -20,8 +23,9 @@ public record Code(Peg peg1, Peg peg2, Peg peg3, Peg peg4) {
     return new Result(correctPegs.size(), misplacedPegs.size());
   }
 
-  private List<Peg> misplacedPegs(Code guess) {
-    return guess.pegs().stream().filter(peg -> pegs().contains(peg)).toList();
+  private List<Color> misplacedPegs(Code guess) {
+    var secretColors = pegs().stream().map(Peg::color).toList();
+    return guess.pegs().stream().map(Peg::color).filter(secretColors::contains).toList();
   }
 
   private ArrayList<Peg> correctPegs(Code guess) {
