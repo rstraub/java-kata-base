@@ -5,10 +5,10 @@ package nl.codecraftr.java.kata;
  */
 public class Kata {
 
-    /**
-     * Cli runner.
-     */
-    public static void main(String[] args) {
-        System.out.println("Hello, Kata!");
-    }
+  /**
+   * Cli runner.
+   */
+  public static void main(String[] args) {
+    System.out.println("Hello, Kata!");
+  }
 }
