@@ -7,6 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CanaryTest {
   @Test
   void canary() {
-    assertThat(true).isFalse();
+    assertThat(true).isTrue();
   }
 }
